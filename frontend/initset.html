@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html ng-app="initset">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<!--
+		<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="jquery-timepicker/jquery.timepicker.css" />
+		-->
+	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="https://rawgithub.com/mgcrea/angular-motion/master/dist/angular-motion.min.css">
+	    <link rel="stylesheet" href="https://rawgithub.com/mgcrea/bootstrap-additions/master/dist/bootstrap-additions.min.css">
+
+	    <!-- 
+	    <link rel="stylesheet" href="https://mgcrea.github.io/angular-strap/styles/libraries.min.css">
+	    <link rel="stylesheet" href="https://mgcrea.github.io/angular-strap/styles/main.min.css">
+	    -->
+		<link type="text/css" rel="stylesheet" href="css/AddStylesInit.css">
+	</head>
+	<body>
+		<div>
+			<h2> Create a schedule for the event</h2>
+			<br>
+			<form name="initdata" ng-controller="InitDataController as schedCtrl" ng-submit="schedCtrl.addSched()">
+				<p>
+				<h4> The explanation/title of this event </h4>
+					<label>Title: <input type="text" class="title-place" name="title" placeholder="Welcome party for Yosuke" ng-model="schedCtrl.sched.title" required> </label>
+					<span class="error" ng-show="initdata.title.$error.required">&nbsp; Title is not filled.</span>
+					<span class="ok" ng-show="initdata.title.$valid">&nbsp; OK.</span>
+					<p>
+					<br>
+				<h4> The place where you are planning </h4>
+					<label>Place: <input type="text" class="title-place" name="place" placeholder="Somewhere nice restaurant" ng-model="schedCtrl.sched.place" required> </label>
+					<span class="error" ng-show="initdata.place.$error.required">&nbsp; Place is not filled.</span>
+					<span class="ok" ng-show="initdata.place.$valid">&nbsp; OK.</span>
+					<p>
+					<label>URL for the place: 
+						<input type="text" class="URL" name="placeURL" 
+					           placeholder="http://somewhere-nice-restaurant/index.html" 
+					           ng-model="schedCtrl.sched.placeURL" 
+					           ng-pattern='/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i'>
+					</label>
+					<span class="optionInput">&nbsp; Arbitrary input. </span>
+					<span class="error" ng-show="initdata.placeURL.$error.pattern">&nbsp; Invalid URL.</span>
+					<span class="ok" ng-show="initdata.placeURL.$valid">&nbsp;  OK.</span>
+					<p>
+					<br>
+				<h4> The time range you want to hold this event (Minimum time range is 5 min)</h4>
+					<label><i class="fa fa-clock-o"></i> From:
+						<input type="text" class="timepicker" id="starttime"
+							   ng-model="schedCtrl.sched.startTime"
+							   ng-focus="schedCtrl.setMaxStartTime()"
+							   data-max-time="{{ schedCtrl.beforeEndTime }}"
+							   bs-timepicker readonly>
+					</label>
+					<label>&nbsp;<i class="fa fa-clock-o"></i> To:
+						<input type="text" class="timepicker" id="endtime"
+							   ng-model="schedCtrl.sched.endTime"
+							   ng-focus="schedCtrl.setMinEndTime()"
+							   data-min-time="{{ schedCtrl.afterStartTime }}"
+							   bs-timepicker readonly>
+					</label>
+					<span class="error" ng-show="schedCtrl.sched.startTime >= schedCtrl.sched.endTime">&nbsp; Start time is later than or equal to the end time.</span>
+					<p>
+					<br>
+				<h4> The term you want to roll-call (Minimum date range is 1 day)</h4>
+					<!-- Date range -->
+    				<label class="control-label">
+    					<i class="fa fa-calendar"></i>
+    					<i class="fa fa-arrow-right"></i>
+    					<i class="fa fa-calendar"></i> Date range
+    				</label>
+    				<br>
+    				<div class="dateRange">
+      					<input type="text" class="datepicker" name="startdate"
+      					       ng-model="schedCtrl.sched.startDate"
+      					       ng-focus="schedCtrl.setMaxStartDate()"
+      					       data-min-date="today"
+      						   data-max-date="{{ schedCtrl.sched.endDate ? schedCtrl.oneBeforeEndDate : null }}"
+      						   placeholder="From" bs-datepicker required readonly>
+      					&nbsp;
+      					<i class="fa fa-arrow-right"></i>
+      					&nbsp;
+      					<input type="text" class="datepicker" name="enddate"
+      					       ng-model="schedCtrl.sched.endDate"
+      						   ng-focus="schedCtrl.setMinEndDate()"
+	      					   data-min-date="{{ schedCtrl.sched.startDate ? schedCtrl.oneAfterStartDate : schedCtrl.tomorrow }}"
+	      					   placeholder="Until" bs-datepicker required readonly>
+	      				<p>
+	      				<span class="error" ng-show="initdata.startdate.$error.required">Start date is not filled.</span>
+	      				<span class="ok" ng-show="initdata.startdate.$valid">Start date is OK.</span>
+	      				<span class="error enddate" ng-show="initdata.enddate.$error.required">End date is not filled.</span>
+	      				<span class="ok enddate" ng-show="initdata.enddate.$valid">End date is OK.</span>
+	      				<p>
+	      			</div>
+      				<br>
+      				<br>
+				<button type="submit"
+					    ng-class="initdata.$invalid ? 'btnDisable' : 'btnEnable'"
+					    ng-disabled="initdata.$invalid"
+					    data-content-template="templates/input_conf.html"
+					    bs-modal="modal">Create
+				</button>
+				<span ng-show="initdata.$invalid" class="error">&nbsp; All rquired inputs are not filled, or there are some errors on inputs.</span>
+				<span ng-show="initdata.$valid" class="ok">&nbsp; All inputs are filled. Ready to create.</span>
+
+			</form>
+		</div>
+		<!-- Angular Relevant -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-sanitize.min.js"></script>
+		<!--
+	    <script src="https://code.angularjs.org/1.3.8/angular-animate.min.js" data-semver="1.3.8"></script>
+	    <script src="https://code.angularjs.org/1.3.8/angular-sanitize.min.js" data-semver="1.3.8"></script>
+	    -->
+
+	    <!-- Angular Locale Relevant -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/i18n/angular-locale_en-us.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.15/angular-locale_ja-jp.js"></script>
+
+		<!-- jQuery Relevant
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+		<script src="jquery-timepicker/jquery.timepicker.min.js"></script>
+		-->
+
+		<!-- Angular Strap (Angular UI) Relevant -->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.2/angular-strap.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.2/angular-strap.tpl.min.js"></script>
+	    <!--
+	    <script src="https://mgcrea.github.io/angular-strap/docs/scripts/docs.tpl.js" data-semver="v2.2.1"></script>
+	    <script src="https://mgcrea.github.io/angular-strap/docs/scripts/demo.tpl.js" data-semver="v2.2.1"></script>
+		-->
+
+		<!-- Other Javascript Utilitiy Libraries -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment-with-locales.min.js"></script>
+
+		<!-- My scripts -->
+		<script src="js/myUtil.js"></script>
+		<script src="js/initset.js"></script>
+	</body>
+</html>

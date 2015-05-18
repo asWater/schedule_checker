@@ -1,0 +1,18 @@
+
+<!-- This file was used for AngluarStrap Modal template -->
+
+<h4> Are you sure to create the event schedule with following information? </h4>
+<p>
+<label>Title:&nbsp;</label> <span class="confVal"> {{schedCtrl.sched.title}} </span>
+<br>
+<label>Place:&nbsp;</label> <span class="confVal"> {{schedCtrl.sched.place}} </span>
+<br>
+<label>Time range:&nbsp;</label> <span class="confVal"> {{schedCtrl.sched.startTimeF}} <i class="fa fa-arrow-right"></i> {{schedCtrl.sched.endTimeF}} </span>
+<br>
+<label>Date range to roll-call:&nbsp;</label> <span class="confVal"> {{schedCtrl.sched.startDateF}} <i class="fa fa-arrow-right"></i> {{schedCtrl.sched.endDateF}} </span>
+<p>
+<br>
+<div class="confButtons">
+	<button type="button" class="btn btn-default btnConfCreate" ng-click="$hide()">Create</button>
+	<button type="button" class="btn btn-default btnConfCancel" ng-click="$hide()">Cancel</button>
+</div>

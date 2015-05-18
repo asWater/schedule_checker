@@ -1,0 +1,14 @@
+{
+	"name" : "schedule_checker",
+	"version" : "0.0.1",
+	"private" : true,
+	"dependencies" :
+	{
+		"express" : "*",
+	    "morgan": "*",
+	    "method-override": "*",
+	    "body-parser": "*",
+	    "errorhandler": "*",
+		"mongodb" : "2.0.x"
+	}
+}

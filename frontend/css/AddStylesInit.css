@@ -1,0 +1,178 @@
+* {
+  font-family: verdana, Meiryo, sans-serif;
+  font-size  : 12pt;
+}
+
+body
+{
+  margin    : 20px;
+  color: #555;
+}
+
+label, .dateRange
+{
+	font-weight: normal;
+	margin-left: 20px;
+}
+
+
+input
+{
+	color: royalblue;
+	background-color: white;
+	font-weight: normal;
+	border-radius: 5px;
+	border: solid 1px #aaa;
+	box-shadow: inset 0px 1px rgba(255, 255, 255, 0.5);
+	padding: 2px;
+	padding-left: 10px;
+}
+
+input.title-place
+{
+	width: 350px;
+}
+
+input.URL
+{
+	width: 500px;
+}
+
+input.timepicker
+{
+	width: 80px;
+}
+
+input.datepicker
+{
+	width: 180px;
+	padding-left: 0;
+	text-align: center;
+}
+
+input:hover
+{
+	border:solid 1px orange;
+}
+
+input:-ms-input-placeholder {
+        color: silver;
+}
+
+button
+{
+	font-weight: bold;
+	border-radius: 25px;
+	padding: 5px 25px 5px 25px;
+}
+
+button.btnEnable:hover
+{
+	color: orange;
+}
+
+.error
+{
+	color: red;
+}
+
+.ok
+{
+	color: green;
+}
+
+.optionInput
+{
+	color: skyblue;
+}
+
+.enddate
+{
+	position: absolute;
+	left: 270px;
+}
+
+.btnEnable
+{
+	color: green;
+}
+
+.btnDisable
+{
+	color: gray;
+}
+
+/*
+In "input_conf.html"
+ */
+
+.confVal
+{
+	color: dodgerblue;
+}
+
+.confButtons
+{
+	text-align: right;
+}
+
+.btnConfCreate
+{
+	color: white;
+	background: dodgerblue;
+}
+
+	.btnConfCreate:hover
+	{
+		color: white;
+		background: darkblue;
+	}
+
+.btnConfCancel
+{
+	color: white;
+	background: crimson;
+}
+
+	.btnConfCancel:hover
+	{
+		color: white;
+		background: darkred;
+	}
+
+
+/*
+For AngularStrap - Datepicker
+ */
+
+.datepicker.dropdown-menu {
+  width: 300px;
+  height: 250px;
+}
+
+tr.ng-binding
+{
+	background: steelblue;
+	color: white;
+}
+
+button.btn.btn-default.btn-block.text-strong
+{
+	color: darkorange;
+}
+
+/*
+For AngularStrap - Modal
+ */
+
+div.modal-header
+{
+	font-weight: bold;
+	background: darkorange;
+	color: white;
+}
+
+h4.modal-title
+{
+	font-weight: bold;
+}
