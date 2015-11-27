@@ -16,6 +16,8 @@ $(function ()
 });
 */
 
+/*2015/11/27 - comment*/
+
 'use strict';
 
 moment.locale( myUtil.getBrowserLang() );
